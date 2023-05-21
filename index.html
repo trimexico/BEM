@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/b60a41a3c0.js" crossorigin="anonymous"></script>
+    <title>BEM study</title>
+</head>
+<body>
+   
+    <!-- <div>
+        <button class="btn-size-m btn btn--success btn--disabled">go to next</button>
+        <button class="btn-size-m btn btn--warning">ok</button>
+        <button class="btn-size-m btn btn--error">try again</button>
+    </div>
+    <div>
+        <button class="btn-size-l btn btn--success btn--disabled">go to next</button>
+        <button class="btn-size-l btn btn--warning">ok</button>
+        <button class="btn-size-l btn btn--error">try again</button>
+    </div> -->
+    <div id="toast">
+        <!-- <div class="toast toast--success">
+        </div> -->
+    </div>
+
+     <div class="">
+        <button onclick="showSuccessToast()" class="btn-size-s btn btn--success">Show Success</button>
+        <button onclick="showInfoToast()" class="btn-size-s btn btn--info">Show Info</button>
+        <button onclick="showWarningToast()" class="btn-size-s btn btn--warning">Show Warning</button>
+        <button onclick="showErrorToast()" class="btn-size-s btn btn--error">Show Error</button>
+    </div>
+
+    
+
+        <!-- success -->
+        <!-- <div class="toast toast--success">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">success</h3>
+                <p class="toast__msg">May vi tinh ket noi internet May vi tinh ket noi internet</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div> -->
+        <!-- Info -->
+        <!-- <div class="toast toast--info">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">info</h3>
+                <p class="toast__msg">May vi tinh ket noi internet May vi tinh ket noi internet</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div> -->
+        <!-- Warning -->
+        <!-- <div class="toast toast--warning">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">warning</h3>
+                <p class="toast__msg">May vi tinh ket noi internet May vi tinh ket noi internet</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div> -->
+        <!-- Error -->
+        <!-- <div class="toast toast--error">
+            <div class="toast__icon">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">error</h3>
+                <p class="toast__msg">May vi tinh ket noi internet May vi tinh ket noi internet</p>
+            </div>
+            <div class="toast__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div> -->
+    </div>
+    <script>
+        function toast ({
+            title = '',
+            message = '',
+            type = 'info',
+            duration = 3000
+        }) {
+            const main = document.getElementById('toast');
+
+            if (main) {
+                const toast = document.createElement('div');
+                // Auto remove toast
+                const autoRemoveId = setTimeout(function(){
+                    main.removeChild(toast);
+                }, duration + 1000);
+
+                // when click remove toast
+                toast.onclick = function(e){
+                    if(e.target.closest('.toast__close')){
+                        main.removeChild(toast);
+                        clearTimeout(autoRemoveId);
+                    }
+                }
+
+                const icons = {
+                    success:  'fa-solid fa-circle-check',
+                    info: 'fa-solid fa-circle-info',
+                    warning: 'fa-solid fa-circle-exclamation',
+                    error: 'fa-solid fa-circle-xmark',
+                };
+                const icon = icons[type];
+                const delay = (duration/1000).toFixed(2);
+
+                toast.classList.add('toast', `toast--${type}`);
+                toast.style.animation = `slideInleft ease .9s, fadeOut linear 1s ${delay}s forwards`;
+
+                toast.innerHTML = `
+                    <div class="toast__icon">
+                        <i class="${icon}"></i>
+                    </div>
+                    <div class="toast__body">
+                        <h3 class="toast__title">${title}</h3>
+                        <p class="toast__msg">${message}</p>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>`
+                ;
+                main.appendChild(toast);
+
+            }
+        }
+
+
+        function showSuccessToast(){
+            toast({
+            title: 'success',
+            message: '123 May vi tinh ket noi internet May vi tinh ket noi internet',
+            type: 'success',
+            duration: 3000
+        });
+        }
+        function showInfoToast(){
+            toast({
+            title: 'info',
+            message: '123 May vi tinh ket noi internet May vi tinh ket noi internet',
+            type: 'info',
+            duration: 3000
+        });
+        }
+        function showWarningToast(){
+            toast({
+            title: 'warning',
+            message: '123 May vi tinh ket noi internet May vi tinh ket noi internet',
+            type: 'warning',
+            duration: 4000
+        });
+        }
+        function showErrorToast(){
+            toast({
+            title: 'error',
+            message: '123 May vi tinh ket noi internet May vi tinh ket noi internet',
+            type: 'error',
+            duration: 5000
+        });
+        }
+    </script>
+</body>
+</html>
